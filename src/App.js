@@ -14,14 +14,15 @@ function App() {
   }
 
   const handleSubmit = () => {
-    console.log(input)
     if(input !== '') {
       let newArr = [...todo]
-      newArr.unshift(input)
+      newArr.unshift({
+        text: input,
+        id: uuidv4(),
+        done: false
+      })
       setTodo(newArr)
       setInput('')
-    } else {
-      console.log('erreur')
     }
   }
 
@@ -30,6 +31,19 @@ function App() {
       handleSubmit()
     }
   })
+
+  const handleDone = (id) => {
+    let newArray = [...todo]
+    let findIndex = newArray.findIndex(p => p.id === id)
+    newArray[findIndex].done = !newArray[findIndex].done
+    setTodo(newArray)
+  }
+  
+  const handleDelete = (id) => {
+    let newArr = [...todo]
+    let filter = newArr.filter(p => p.id !== id)
+    setTodo(filter)
+  }
 
   return (
     <div className='relative bg-slate-900 min-h-screen w-full'>
@@ -47,10 +61,26 @@ function App() {
 
         <div className='relative w-full bg-slate-900 p-2 rounded flex flex-col text-slate-400 text-sm shadow-xl'>
 
-          {todo.map(item => 
-          <Item 
-          key={uuidv4()}
-          text={item}/>)}
+          {todo.map((item, index) => 
+
+          !item.done ?
+          <Item
+          key={item.id}
+          id={item.id}
+          text={item.text}
+          done={item.done}
+          func={handleDone}
+          del={handleDelete}/>
+          :
+          <Item
+          key={item.id}
+          id={item.id}
+          text={item.text}
+          done={item.done}
+          func={handleDone}
+          del={handleDelete}/>
+
+          )}
 
           <div className='relative flex justify-between space-x-4 text-xs text-slate-600 border-slate-800 p-4'>
             <p>{todo.length} {todo.length > 1 ? 'items' : 'item'} left</p>
