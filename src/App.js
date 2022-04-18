@@ -58,7 +58,7 @@ function App() {
 
 
   return (
-    <div className='relative bg-slate-900 min-h-screen w-1/2'>
+    <div className='relative bg-slate-900 min-h-screen w-full md:w-2/3 lg:w-1/2'>
       <div className='absolute shadow-lg'>
         <img src={bg} className='h-56 object-cover w-full rounded'/>
       </div>
