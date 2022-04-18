@@ -6,7 +6,7 @@ import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <>
+  <div className='bg-slate-900 flex justify-center'>
     <App />
-  </>
+  </div>
 );
